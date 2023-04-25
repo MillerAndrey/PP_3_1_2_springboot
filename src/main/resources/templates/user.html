@@ -25,9 +25,15 @@
         <td th:utext="${user.getLastName()}">
         <td th:utext="${user.getAge()}">
         <td>
-            <a th:href="@{/users/updateInfo(userId=${user.getId()})}">edit</a>
-            <a th:href="@{/users/delete(userId=${user.getId()})}">delete</a>
-        </td>
+        <form th:method="PATCH" th:action="@{/users/updateInfo(userId=${user.getId()})}" th:object="${user}">
+
+            <input type="submit" value="Update"/>
+        </form>
+
+        <form th:method="DELETE" th:action="@{/users/delete(userId=${user.getId()})}">
+            <input type="submit" value="Delete"/>
+        </form>
+
     </tr>
 
 </table>

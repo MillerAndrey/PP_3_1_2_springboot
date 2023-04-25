@@ -29,31 +29,33 @@ public class UserController {
     @GetMapping("/addNewUser")
     public String addNewUser(Model model) {
         User user = new User();
-            model.addAttribute("user", user);
-
+        model.addAttribute("user", user);
         return "user-info";
     }
 
     @PostMapping("/saveUser")
     public ModelAndView saveUser(@ModelAttribute("user") User user) {
-        if ((user.getName() != "") && (user.getLastName() != "")) {
-            userService.saveUser(user);
-        }
+        userService.saveUser(user);
         return new ModelAndView("redirect:/users");
     }
 
-    @GetMapping("/updateInfo")
+    @PatchMapping("/updateInfo")
     public String updateUser(@RequestParam(value = "userId") Long id, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
-        return "user-info";
-
+        return "user-create";
     }
 
-    @GetMapping("/delete")
+    @PatchMapping("/updateUser")
+    public ModelAndView update(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
+        return new ModelAndView("redirect:/users");
+    }
+
+
+    @DeleteMapping("/delete")
     public String deleteUser(@RequestParam(value = "userId") Long id) {
         userService.removeUserById(id);
         return "redirect:/users";
-
     }
 }

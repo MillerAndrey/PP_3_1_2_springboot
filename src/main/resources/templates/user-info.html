@@ -3,12 +3,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User info</title>
+    <div th:if="${user.getName() == null}">
+    <title>User add</title>
+    </div>
+    <div th:if="${user.getName() != null}">
+        <title>User update</title>
+    </div>
+
 </head>
 <body>
-<h2>User add</h2>
+<div th:if="${user.getName() == null}">
+    <h2>User add</h2>
+</div>
+<div th:if="${user.getName() != null}">
+    <h2>User update</h2>
+</div>
+
 <br>
     <form th:method="POST" th:action="@{/users/saveUser}" th:object="${user}">
+
         <input type="hidden" th:field="*{id}">
         <label for="name">Name: </label>
         <input type="text" th:field="*{name}" id="name"/>
@@ -21,6 +34,8 @@
     <br><br>
         <input type="submit" value="OK"/>
     </form>
+
+
 
 </body>
 </html>

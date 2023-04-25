@@ -20,7 +20,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        userDao.saveUser(user);
+        if ((user.getName() != "") && (user.getLastName() != "")) {
+            userDao.saveUser(user);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
     @Override
@@ -37,7 +45,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
